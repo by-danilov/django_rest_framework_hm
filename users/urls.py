@@ -1,11 +1,9 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from . import views
-
-router = DefaultRouter()
-router.register(r'courses', views.CourseViewSet)
-router.register(r'lessons', views.LessonViewSet)  # Если есть LessonViewSet
+from django.urls import path
+from .views import register, login, UserDetailView
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('register/', register, name='register'),
+    path('login/', login, name='login'),
+    path('users/<int:pk>/', UserDetailView.as_view(), name='user-detail'),
+    path('payments/', PaymentListView.as_view(), name='payment-list'),
 ]

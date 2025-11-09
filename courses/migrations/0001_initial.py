@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 ('description', models.TextField(blank=True, null=True)),
                 ('preview', models.ImageField(blank=True, null=True, upload_to='lesson_previews/')),
                 ('video_url', models.URLField()),
-                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='lessons', to='lms.course')),
+                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='lessons', to='courses.course')),
             ],
         ),
     ]

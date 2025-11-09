@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('auth', '0012_alter_user_first_name_max_length'),
-        ('lms', '0002_alter_course_options_alter_lesson_options_and_more'),
+        ('courses', '0002_alter_course_options_alter_lesson_options_and_more'),
     ]
 
     operations = [
@@ -49,8 +49,8 @@ class Migration(migrations.Migration):
                 ('payment_date', models.DateTimeField()),
                 ('amount', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('payment_method', models.CharField(choices=[('cash', 'Наличные'), ('transfer', 'Перевод на счёт')], max_length=20)),
-                ('paid_course', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='course_payments', to='lms.course')),
-                ('paid_lesson', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='lesson_payments', to='lms.lesson')),
+                ('paid_course', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='course_payments', to='courses.course')),
+                ('paid_lesson', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='lesson_payments', to='courses.lesson')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='payments', to=settings.AUTH_USER_MODEL)),
             ],
             options={
