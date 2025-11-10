@@ -2,18 +2,18 @@ from rest_framework import views, permissions, viewsets, generics
 from django_filters import rest_framework as filters
 from .serializers import PaymentSerializer
 from .models import Payment
-from .permissions import IsModeratorOrOwner, IsModerator
+from .permissions import IsModeratorOrOwner
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import UserRegisterSerializer, UserSerializer
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from .models import CourseSubscription, Course
+from .models import CourseSubscription
+from users.models import User
+from rest_framework.permissions import IsAuthenticated
 
 
 @api_view(['POST'])
@@ -92,7 +92,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         # Модераторы видят все платежи, остальные — только свои
-        if IsModerator().has_permission(self.request, self):
+        if IsModeratorOrOwner().has_permission(self.request, self):
             return Payment.objects.all()
         return Payment.objects.filter(user=self.request.user)
 
